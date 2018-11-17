@@ -3,11 +3,12 @@
 #include "TextureManager.h"
 class GameObject {
 public:
-	GameObject(const char* texturesheet, SDL_Renderer* ren,int x,int y) {
-		renderer = ren;
-		objTexture = TextureManager::LoadTexture(texturesheet, ren);
+	GameObject(const char* texturesheet,int x,int y) {
+		
+		objTexture = TextureManager::LoadTexture(texturesheet);
 		xpos = x;
 		ypos = y;
+		
 	};
 	~GameObject() {
 	
@@ -15,23 +16,24 @@ public:
 	void Update() {
 		xpos++;
 		ypos++;
-		srcRect.h = 300;
-		srcRect.w = 201;
+		srcRect.h = 75;
+		srcRect.w = 50;
 		srcRect.x = 0;
 		srcRect.y = 0;
 		destRect.x = xpos;
 		destRect.y = ypos;
-		destRect.w = srcRect.w / 2;
-		destRect.h = srcRect.h / 2;
+		destRect.w = srcRect.w ;
+		destRect.h = srcRect.h ;
 	};
 	void Render() {
-		SDL_RenderCopy(renderer, objTexture, &srcRect, &destRect);
+		SDL_RenderCopy(Game::renderer, objTexture, &srcRect, &destRect);
 	};
 private:
 	int xpos;
 	int ypos;
+	
 	SDL_Texture* objTexture;
 	SDL_Rect srcRect, destRect;
-	SDL_Renderer* renderer;
+	
 
 };

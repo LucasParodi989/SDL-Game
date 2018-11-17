@@ -18,9 +18,11 @@ public:
 	void render();
 	void clean();
 	static SDL_Renderer *renderer;
+	static SDL_Event event;
 private:
 	bool isRunning = false;
 	int cnt = 0;
 	SDL_Window *window;
+	
 	
 };

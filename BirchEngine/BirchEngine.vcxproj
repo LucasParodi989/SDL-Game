@@ -156,7 +156,9 @@
   <ItemGroup>
     <ClInclude Include="Src\Game.h" />
     <ClInclude Include="Src\GameObject.h" />
+    <ClInclude Include="Src\Keyboard.h" />
     <ClInclude Include="Src\Map.h" />
+    <ClInclude Include="Src\Player.h" />
     <ClInclude Include="Src\TextureManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

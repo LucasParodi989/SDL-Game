@@ -1,8 +1,11 @@
 #pragma once
+
 #include "Game.h"
 #include "TextureManager.h"
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
+
 class Map
 {
 public:
@@ -12,7 +15,7 @@ public:
 		for (int row = 0; row < 20; row++) {
 			for (int columm = 0; columm < 25; columm++) {
 				
-				map[row][columm] = rand() % 3;
+				map[row][columm] = rand() % 3+48;
 				
 			}
 		}
@@ -31,13 +34,18 @@ public:
 		dest.x = dest.y = 0;
 	};
 	~Map() {};
-	void LoadMap(int arr[20][25]) {
+	void LoadMap(char cuadrados[]) {
+		int i=0;
 		for (int row = 0; row < 20; row++) {
 			for (int columm = 0; columm < 25; columm++) {
-				map[row][columm] = arr[row][columm];
+				map[row][columm] = cuadrados[i];
+				i++;
 			}
 		}
-	};
+	}
+	void LoadMapFile() {
+	
+	}
 	void DrawMap() {
 		int type = 0;
 
@@ -47,18 +55,30 @@ public:
 				dest.x = columm * 32;
 				dest.y = row * 32;
 				switch (type) {
-				case 0:
+				case '0':
 					TextureManager::Draw(water, src, dest);
 					break;
-				case 1:
+				case '1':
 					TextureManager::Draw(grass, src, dest);
 					break;
-				case 2:
+				case '2':
 					TextureManager::Draw(dirt, src, dest);
 					break;
 				}
 			}
 		}
+	}
+	void saveMap() {
+		if (Game::event.key.keysym.sym == SDLK_s) {
+		std::ofstream  mapa("mapa.txt");
+
+		for (int row = 0; row < 20; row++) {
+			for (int columm = 0; columm < 25; columm++) {
+				mapa << map[row][columm];
+			}
+		}
+	}
+		num++;
 	}
 	;
 
@@ -67,7 +87,7 @@ private:
 	SDL_Texture* dirt;
 	SDL_Texture* grass;
 	SDL_Texture* water;
-	int map[20][25];
-	
+	char map[20][25];
+	int num = 1;
 
 };

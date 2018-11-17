@@ -9,6 +9,12 @@ GameObject* enemy;
 Map* map;
 int cont = 0;
 
+
+
+
+
+
+
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 /*SDL_Texture *playerTex;
@@ -66,7 +72,37 @@ void Game::handleEvents()
 
 void Game::update()
 {
+
+
+	if (Game::event.key.keysym.sym == SDLK_c) {
+
+		std::ifstream mapafile("mapa.txt");
+		char cuadrados[900];
+		char cuadrado;
+		int i = 0;
+		while (!mapafile.eof()) {
+			mapafile >> cuadrado;
+			cuadrados[i] = cuadrado;
+			i++;
+		}
+
+
+		/*int sig = 0;
+		for (int row = 0; row < 20; row++) {
+			for (int columm = 0; columm < 25; columm++) {
+				map[row][columm] = cuadrados[i];
+				sig++;
+
+			}
+		}
+		*/
+		map->LoadMap(cuadrados);
+
+	}
+
+
 	cont++;
+	
 	
 	player->Move(cont);
 	player->Update();
@@ -77,7 +113,8 @@ void Game::render()
 {
 	SDL_RenderClear(renderer);
 	map->DrawMap();
-	
+	map->saveMap();
+	map->LoadMapFile();
 	player->Render();
 
 	enemy->Render();
